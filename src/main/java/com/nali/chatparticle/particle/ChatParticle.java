@@ -14,7 +14,9 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL20;
 
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.WeakHashMap;
 
 import static com.nali.system.opengl.memory.OpenGLCurrentMemory.*;
@@ -22,6 +24,7 @@ import static com.nali.system.opengl.memory.OpenGLCurrentMemory.*;
 @SideOnly(Side.CLIENT)
 public class ChatParticle extends Particle
 {
+    public static Set<ChatParticle> CHATPARTICLE_SET = new LinkedHashSet<>();
     public static Map<Integer, String> ID_TEXT_MAP = new WeakHashMap<>();
     public int id;
     public String string;
@@ -31,6 +34,7 @@ public class ChatParticle extends Particle
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         this.id = id[0];
         this.particleAge = -(id[1] * 20 - this.particleMaxAge);
+        CHATPARTICLE_SET.add(this);
     }
 
     @Override
@@ -47,6 +51,17 @@ public class ChatParticle extends Particle
 
     @Override
     public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
+    {
+    }
+
+    @Override
+    public void setExpired()
+    {
+        super.setExpired();
+        CHATPARTICLE_SET.remove(this);
+    }
+
+    public void render(Entity entityIn, float partialTicks)
     {
         Entity entity = this.world.getEntityByID(this.id);
         if (entity != null)
