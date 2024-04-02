@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -95,7 +96,8 @@ public class ChatParticle extends Particle
 //                GL11.glPushAttrib(GL11.GL_TEXTURE_BIT);
 
                 GL_LIGHTING = GL11.glIsEnabled(GL11.GL_LIGHTING);
-                GL11.glDisable(GL11.GL_LIGHTING);
+//                GL11.glDisable(GL11.GL_LIGHTING);
+                GlStateManager.disableLighting();
 
                 float lx = OpenGlHelper.lastBrightnessX;
                 float ly = OpenGlHelper.lastBrightnessY;
@@ -114,7 +116,8 @@ public class ChatParticle extends Particle
                 GL_CURRENT_COLOR[3] = OPENGL_FIXED_PIPE_FLOATBUFFER.get(3);
 
                 GL_BLEND = GL11.glIsEnabled(GL11.GL_BLEND);
-                GL11.glEnable(GL11.GL_BLEND);
+//                GL11.glEnable(GL11.GL_BLEND);
+                GlStateManager.enableBlend();
 
                 GL11.glGetInteger(GL20.GL_BLEND_EQUATION_RGB, OPENGL_INTBUFFER);
                 GL_BLEND_EQUATION_RGB = OPENGL_INTBUFFER.get(0);
@@ -134,7 +137,8 @@ public class ChatParticle extends Particle
                 GL14.glBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
 
                 GL_CULL_FACE = GL11.glIsEnabled(GL11.GL_CULL_FACE);
-                GL11.glDisable(GL11.GL_CULL_FACE);
+//                GL11.glDisable(GL11.GL_CULL_FACE);
+                GlStateManager.disableCull();
 
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
@@ -171,28 +175,28 @@ public class ChatParticle extends Particle
 
                 OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lx, ly);
 
-                if (GL_CULL_FACE)
-                {
-                    GL11.glEnable(GL11.GL_CULL_FACE);
-                }
-                else
-                {
-                    GL11.glDisable(GL11.GL_CULL_FACE);
-                }
-
-                GL20.glBlendEquationSeparate(GL_BLEND_EQUATION_RGB, GL_BLEND_EQUATION_ALPHA);
-                GL14.glBlendFuncSeparate(GL_BLEND_SRC_RGB, GL_BLEND_DST_RGB, GL_BLEND_SRC_ALPHA, GL_BLEND_DST_ALPHA);
-
-                if (GL_LIGHTING)
-                {
-                    GL11.glEnable(GL11.GL_LIGHTING);
-                }
-                else
-                {
-                    GL11.glDisable(GL11.GL_LIGHTING);
-                }
-
-                GL11.glColor4f(GL_CURRENT_COLOR[0], GL_CURRENT_COLOR[1], GL_CURRENT_COLOR[2], GL_CURRENT_COLOR[3]);
+//                if (GL_CULL_FACE)
+//                {
+//                    GL11.glEnable(GL11.GL_CULL_FACE);
+//                }
+//                else
+//                {
+//                    GL11.glDisable(GL11.GL_CULL_FACE);
+//                }
+//
+//                GL20.glBlendEquationSeparate(GL_BLEND_EQUATION_RGB, GL_BLEND_EQUATION_ALPHA);
+//                GL14.glBlendFuncSeparate(GL_BLEND_SRC_RGB, GL_BLEND_DST_RGB, GL_BLEND_SRC_ALPHA, GL_BLEND_DST_ALPHA);
+//
+//                if (GL_LIGHTING)
+//                {
+//                    GL11.glEnable(GL11.GL_LIGHTING);
+//                }
+//                else
+//                {
+//                    GL11.glDisable(GL11.GL_LIGHTING);
+//                }
+//
+//                GL11.glColor4f(GL_CURRENT_COLOR[0], GL_CURRENT_COLOR[1], GL_CURRENT_COLOR[2], GL_CURRENT_COLOR[3]);
 
 //                GL11.glPopAttrib();
 
