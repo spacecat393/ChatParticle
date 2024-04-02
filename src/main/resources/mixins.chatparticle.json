@@ -1,0 +1,11 @@
+{
+  "package": "com.nali.chatparticle.mixin",
+  "refmap": "mixins.chatparticle.refmap.json",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_8",
+  "required": true,
+  "minVersion": "0.7.11",
+  "mixins": [
+    "MixinEntityPlayerMP"
+  ]
+}
