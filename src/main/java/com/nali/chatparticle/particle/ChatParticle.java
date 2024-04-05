@@ -31,6 +31,7 @@ public class ChatParticle extends Particle
     public static Map<Integer, String> ID_TEXT_MAP = new WeakHashMap<>();
     public int id;
     public String string;
+    public boolean should_clear = true;
 
     public ChatParticle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... id)
     {
@@ -62,6 +63,10 @@ public class ChatParticle extends Particle
     {
         super.setExpired();
         CHATPARTICLE_SET.remove(this);
+        if (this.should_clear)
+        {
+            ID_TEXT_MAP.remove(this.id);
+        }
     }
 
     public void render(Entity entityIn, float partialTicks)
@@ -79,6 +84,7 @@ public class ChatParticle extends Particle
         {
             if (this.string != null && !this.string.equals(ID_TEXT_MAP.get(this.id)))
             {
+                this.should_clear = false;
                 this.setExpired();
             }
             else
