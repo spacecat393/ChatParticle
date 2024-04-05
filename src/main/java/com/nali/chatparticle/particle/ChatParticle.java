@@ -1,5 +1,7 @@
 package com.nali.chatparticle.particle;
 
+import com.nali.chatparticle.config.MyConfig;
+import com.nali.key.KeyHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.particle.Particle;
@@ -46,7 +48,7 @@ public class ChatParticle extends Particle
         Entity entity = this.world.getEntityByID(this.id);
         if (entity != null)
         {
-            this.setPosition(entity.posX, entity.posY + entity.height + 1.0F, entity.posZ);
+            this.setPosition(entity.posX + MyConfig.POSITION.X, entity.posY + entity.height + MyConfig.POSITION.Y, entity.posZ + MyConfig.POSITION.Z);
         }
     }
 
@@ -64,6 +66,14 @@ public class ChatParticle extends Particle
 
     public void render(Entity entityIn, float partialTicks)
     {
+        Minecraft minecraft = Minecraft.getMinecraft();
+        RenderManager rendermanager = minecraft.getRenderManager();
+
+        if (!MyConfig.MISC.ON_FIRST_PERSON && rendermanager.options.thirdPersonView == 0 && entityIn.getEntityId() == this.id)
+        {
+            return;
+        }
+
         Entity entity = this.world.getEntityByID(this.id);
         if (entity != null)
         {
@@ -78,8 +88,6 @@ public class ChatParticle extends Particle
                     this.string = ID_TEXT_MAP.get(this.id);
                 }
 
-                Minecraft minecraft = Minecraft.getMinecraft();
-                RenderManager rendermanager = minecraft.getRenderManager();
                 FontRenderer fontrenderer = minecraft.fontRenderer;
 
                 float size = (fontrenderer.getStringWidth(this.string) * 0.05F) / 2.0F;
@@ -166,8 +174,15 @@ public class ChatParticle extends Particle
 //                GL11.glTranslatef(-(x + size / 2.0F), -y, -z);
 //                GL11.glTranslatef(x - px + size / 2.0F, y - py, z - pz);
                 GL11.glTranslatef(size, 0, 0);
-                GL11.glScalef(-0.05F, -0.05F, -0.05F);
-                fontrenderer.drawStringWithShadow(this.string, 0, 0, 0xFFFFFFFF);
+                GL11.glScalef(MyConfig.SIZE.X, MyConfig.SIZE.Y, MyConfig.SIZE.Z);
+                if (MyConfig.COLOR.RAINBOW)
+                {
+                    fontrenderer.drawStringWithShadow(this.string, 0, 0, KeyHelper.getRainbowColor4());
+                }
+                else
+                {
+                    fontrenderer.drawStringWithShadow(this.string, 0, 0, (MyConfig.COLOR.A << (8 * 3)) | (MyConfig.COLOR.R << (8 * 2)) | (MyConfig.COLOR.G << 8) | MyConfig.COLOR.B);
+                }
 //                GL11.glColorMask(true, true, true, true);
 //                fontrenderer.drawStringWithShadow(this.string, 0, 0, 0xFFFFFFFF);
 
