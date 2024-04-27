@@ -27,8 +27,8 @@ import static com.nali.system.opengl.memory.OpenGLCurrentMemory.*;
 @SideOnly(Side.CLIENT)
 public class ChatParticle extends Particle
 {
-    public static Set<ChatParticle> CHATPARTICLE_SET = new LinkedHashSet<>();
-    public static Map<Integer, String> ID_TEXT_MAP = new WeakHashMap<>();
+    public static Set<ChatParticle> CHATPARTICLE_SET = new LinkedHashSet();
+    public static Map<Integer, String> ID_TEXT_MAP = new WeakHashMap();
     public int id;
     public String string;
     public boolean should_clear = true;
