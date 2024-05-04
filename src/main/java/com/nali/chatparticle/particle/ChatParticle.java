@@ -20,7 +20,7 @@ import org.lwjgl.opengl.GL20;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.HashMap;
 
 import static com.nali.system.opengl.memory.OpenGLCurrentMemory.*;
 
@@ -28,7 +28,7 @@ import static com.nali.system.opengl.memory.OpenGLCurrentMemory.*;
 public class ChatParticle extends Particle
 {
     public static Set<ChatParticle> CHATPARTICLE_SET = new LinkedHashSet();
-    public static Map<Integer, String> ID_TEXT_MAP = new WeakHashMap();
+    public static Map<Integer, String> ID_TEXT_MAP = new HashMap();
     public int id;
     public String string;
     public boolean should_clear = true;
