@@ -22,7 +22,7 @@ public abstract class MixinEntityPlayerMP extends EntityPlayer
     }
 
     @Inject(method = "sendStatusMessage", at = @At(value = "HEAD"))
-    private void sendStatusMessage(ITextComponent chatComponent, boolean actionBar, CallbackInfo ci)
+    private void nali_chatparticle_sendStatusMessage(ITextComponent chatComponent, boolean actionBar, CallbackInfo ci)
     {
         String string = chatComponent.getFormattedText();
         byte[] string_byte_array = string.getBytes();
